@@ -1,9 +1,7 @@
 //
 //  SCDecrypt.c
-//  Scriptabl
 //
 //  Created by Zayin Krige on 2017/11/30.
-//  Copyright © 2017 Scriptabl. All rights reserved.
 //
 
 #include "SCDecrypt.h"
@@ -15,6 +13,9 @@
 #include <openssl/crypto.h>
 #include <openssl/rand.h>
 
+/*
+converts PEM encoded certificate to X509
+*/
 X509 *getCert(const char *certificate) {
     BIO *membuf = BIO_new(BIO_s_mem());
     BIO_puts(membuf, certificate);
@@ -22,6 +23,9 @@ X509 *getCert(const char *certificate) {
     return x509;
 }
 
+/*
+converts PEM encoded private key
+*/
 EVP_PKEY *getKey(const char *privateKey) {
     BIO *membuf = BIO_new(BIO_s_mem());
     BIO_puts(membuf, privateKey);
@@ -29,6 +33,10 @@ EVP_PKEY *getKey(const char *privateKey) {
     return key;
 }
 
+
+/*
+converts SMIME Container
+*/
 PKCS7 *getContainer(const char *encrypted) {
     BIO* membuf = BIO_new(BIO_s_mem());
     BIO_set_mem_eof_return(membuf, 0); 
@@ -40,6 +48,9 @@ PKCS7 *getContainer(const char *encrypted) {
     return pkcs7;
 }
 
+/*
+decrypts the SMIME container
+*/
 char *decrypt(PKCS7 *pkcs7, EVP_PKEY *pkey, X509 *cert) {
 
     BIO *out = BIO_new(BIO_s_mem());
@@ -59,7 +70,9 @@ char *decrypt(PKCS7 *pkcs7, EVP_PKEY *pkey, X509 *cert) {
     return data;
 
 }
-
+/*
+decrypts a PKCS7 SMIME container with given private key and certificate
+*/
 char *decrypt_smime(const char *encrypted, const char *privateKey, const char *certificate) {
 
     OpenSSL_add_all_algorithms();

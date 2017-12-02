@@ -1,12 +1,12 @@
 //
-//  ScriptDecrypt.h
+//  PKCS7Decrypt.h
 //
 //  Created by Zayin Krige on 2017/11/30.
 //
 
 #import <Foundation/Foundation.h>
 
-@interface ScriptDecrypt : NSObject
+@interface PKCS7Decrypt : NSObject
 /*
 decrypts a PKCS7 SMIME container with given private key and certificate
 This is just a wrapper function around the pure c code

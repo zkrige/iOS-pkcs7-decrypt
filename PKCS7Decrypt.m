@@ -1,13 +1,13 @@
 //
-//  ScriptDecrypt.m
+//  PKCS7Decrypt.m
 //
 //  Created by Zayin Krige on 2017/11/30.
 //
 
-#import "ScriptDecrypt.h"
-#import "SCDecrypt.h"
+#import "PKCS7Decrypt.h"
+#import "SMimeDecrypt.h"
 
-@implementation ScriptDecrypt
+@implementation PKCS7Decrypt
 
 + (NSString *)decrypt:(NSString *)encrypted privateKey:(NSString *)privateKey certificate:(NSString *)certificate {
     const char *enc = [encrypted UTF8String];

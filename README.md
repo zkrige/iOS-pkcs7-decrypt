@@ -18,8 +18,8 @@ class DecryptHelper {
 
     public class func decrypt(encrypted: String) throws -> String {
 
-      guard let decrypted = ScriptDecrypt.decrypt(enc, privateKey: pKey, certificate: certificate) else {
-          throw "invalid encrypted script"
+      guard let decrypted = PKCS7Decrypt.decrypt(enc, privateKey: pKey, certificate: certificate) else {
+          throw "invalid encrypted string"
       }
       return decrypted
     }

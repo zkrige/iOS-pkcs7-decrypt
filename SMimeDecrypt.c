@@ -1,10 +1,10 @@
 //
-//  SCDecrypt.c
+//  SMimeDecrypt.c
 //
 //  Created by Zayin Krige on 2017/11/30.
 //
 
-#include "SCDecrypt.h"
+#include "SMimeDecrypt.h"
 #include <openssl/bio.h>
 #include <openssl/cms.h>
 #include <openssl/err.h>
@@ -39,6 +39,11 @@ converts SMIME Container
 */
 PKCS7 *getContainer(const char *encrypted) {
     BIO* membuf = BIO_new(BIO_s_mem());
+    //see error here - http://openssl.6102.n7.nabble.com/SMIME-read-PKCS7-fails-with-memory-BIO-but-works-with-file-BIO-td7673.html
+    //if we dont set this, then we get error: 218542222
+    //This error, converted to hexadecimal, is 0xd06b08e which when used in 
+    //$ `openssl errstr d06b08e` gives 
+    //error:0D06B08E:asn1 encoding routines:ASN1_d2i_bio:not enough data 
     BIO_set_mem_eof_return(membuf, 0); 
     BIO_puts(membuf, encrypted);
     PKCS7* pkcs7 = SMIME_read_PKCS7(membuf, NULL);

@@ -60,7 +60,7 @@ class DecryptHelper {
 To encrypt using PKCS7
 
 ```
-//path is the file to encrypt
+//path is the .p7m file to encrypt
 public class func encrypt(path : String) -> String {
     let data = try! Data(contentsOf: URL(string: path)!)
     let receiptBIO = BIO_new(BIO_s_mem())

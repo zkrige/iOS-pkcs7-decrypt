@@ -14,9 +14,6 @@ extension String: LocalizedError {
 }
 
 
-Here is how i decrypt
-
-```
 class DecryptHelper {
     public class func decrypt(encrypted: String) throws -> String {
         guard let pkData = CSRGenerator.getPrivateKeyBits(CSR.Tag) else {
@@ -56,5 +53,25 @@ class DecryptHelper {
     }
 }
 @end
+
+```
+
+
+To encrypt using PKCS7
+
+```
+//path is the file to encrypt
+public class func encrypt(path : String) -> String {
+    let data = try! Data(contentsOf: URL(string: path)!)
+    let receiptBIO = BIO_new(BIO_s_mem())
+    BIO_write(receiptBIO, (data as! NSData).bytes, Int32(data.count))
+    let pkcs7 = d2i_PKCS7_bio(receiptBIO, nil)
+    if pkcs7 == nil {
+        print("??")
+    }
+    return pkcs7!
+}
+
+
 
 ```
